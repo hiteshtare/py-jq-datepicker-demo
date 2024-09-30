@@ -16,19 +16,29 @@ $(document).ready(function () {
     var disabledDays = [];
     var php_data = [
       {
-        block_date: '30-Sep-2024',
+        restricted: "",
+        purpose: '--Select--',
+      },
+      {
+        restricted: "'15-Sep-2024','16-Sep-2024','30-Sep-2024'",
         purpose: 'Individual Retreat',
       },
       {
-        block_date: '05-Oct-2024',
+        restricted: "'25-Sep-2024','26-Sep-2024','05-Oct-2024'",
         purpose: 'Long Meditation',
       },
       {
-        block_date:
+        restricted:
           "'28-Sep-2024','29-Sep-2024','17-Oct-2024','18-Oct-2024', '19-Oct-2024', '20-Oct-2024','14-Nov-2024','15-Nov-2024', '16-Nov-2024', '17-Nov-2024'",
         purpose: 'Conducted Retreat',
       },
     ];
+
+    //Populdate Dropdown 
+    var $dropdown = $("#input_57_1");
+    $.each(php_data, function () {
+      $dropdown.append($("<option />").val(this.purpose).text(this.purpose));
+    });
 
     // Assign Date datepicker options to variable
     var optionsArrivalDate = datepickerArrivalDate.datepicker('option', 'all');
@@ -41,12 +51,21 @@ $(document).ready(function () {
     var optionsArrivalDateCopy = Object.assign([], optionsArrivalDate);
     var optionsDepartureDateCopy = Object.assign([], optionsDepartureDate);
 
+    // Default value for Purpose of visit dropdown 
+    const defaultValue = "Individual Retreat";
+    $("#input_57_1").val(defaultValue);
+    updateDatepickerOnDropdownChange(defaultValue);
+
     // Change event for Purpose of visit dropdown
     dropdownPurposeOfVisit.on('change', function () {
       console.log('You selected: ', this.value);
 
+      updateDatepickerOnDropdownChange(this.value);
+    });
+
+    function updateDatepickerOnDropdownChange(currenValue) {
       //Filter array based on value selected to get Array of different years
-      const foundDates = php_data.filter((x) => x.purpose === this.value);
+      const foundDates = php_data.filter((x) => x.purpose === currenValue);
       console.warn('foundDates');
       console.log(foundDates);
 
@@ -61,12 +80,12 @@ $(document).ready(function () {
         });
         if (existing.length) {
           var existingIndex = mergedArray.indexOf(existing[0]);
-          mergedArray[existingIndex].block_date = mergedArray[
+          mergedArray[existingIndex].restricted = mergedArray[
             existingIndex
-          ].block_date.concat(item.block_date);
+          ].restricted.concat(item.restricted);
         } else {
-          if (typeof item.block_date == 'string')
-            item.block_date = [item.block_date];
+          if (typeof item.restricted == 'string')
+            item.restricted = [item.restricted];
           mergedArray.push(item);
         }
       });
@@ -81,7 +100,7 @@ $(document).ready(function () {
         console.log(mergedArray);
 
         //Take single value of string array and final merge into single string
-        disabledDays = mergedArray[0].block_date.join('');
+        disabledDays = mergedArray[0].restricted.join('');
         console.log(disabledDays);
 
         /*------------------------ DATEPICKER ------------------------*/
@@ -106,6 +125,6 @@ $(document).ready(function () {
         datepickerArrivalDate.datepicker(optionsArrivalDateCopy);
         datepickerDepartureDate.datepicker(optionsDepartureDateCopy);
       }
-    });
+    }
   });
 });
