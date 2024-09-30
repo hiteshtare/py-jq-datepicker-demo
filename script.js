@@ -20,31 +20,31 @@ $(document).ready(function () {
         start_date: '',
         end_date: '',
         restricted: "",
-        status: '',
+        status: true,
       },
       {
         purpose_name: 'Individual Retreat',
-        start_date: '',
-        end_date: '',
+        start_date: '10-Sep-2024',
+        end_date: '30-Sep-2024',
         restricted: "'15-Sep-2024','16-Sep-2024','30-Sep-2024'",
-        status: '',
+        status: true,
       },
 
       {
         purpose_name: 'Long Meditation',
-        start_date: '',
-        end_date: '',
+        start_date: '20-Sep-2024',
+        end_date: '15-Oct-2024',
         restricted: "'25-Sep-2024','26-Sep-2024','05-Oct-2024'",
-        status: '',
+        status: true,
       },
 
       {
         purpose_name: 'Conducted Retreat',
-        start_date: '',
-        end_date: '',
+        start_date: '25-Sep-2024',
+        end_date: '25-Nov-2024',
         restricted:
           "'28-Sep-2024','29-Sep-2024','17-Oct-2024','18-Oct-2024', '19-Oct-2024', '20-Oct-2024','14-Nov-2024','15-Nov-2024', '16-Nov-2024', '17-Nov-2024'",
-        status: '',
+        status: true,
       },
     ];
 
@@ -79,16 +79,16 @@ $(document).ready(function () {
 
     function updateDatepickerOnDropdownChange(currenValue) {
       //Filter array based on value selected to get Array of different years
-      const foundDates = php_data.filter((x) => x.purpose_name === currenValue);
-      console.warn('foundDates');
-      console.log(foundDates);
+      const foundData = php_data.filter((x) => x.purpose_name === currenValue);
+      console.warn('foundData');
+      console.log(foundData);
 
       /* 
          Merge array of same value to have Single string array for 
          Datepicker to be supported
       */
       let mergedArray = [];
-      foundDates.forEach(function (item) {
+      foundData.forEach(function (item) {
         var existing = mergedArray.filter(function (v, i) {
           return v.name == item.name;
         });
@@ -117,7 +117,7 @@ $(document).ready(function () {
         disabledDays = mergedArray[0].restricted.join('');
         console.log(disabledDays);
 
-        /*------------------------ DATEPICKER ------------------------*/
+        /*------------------------ RESTRICTED ------------------------*/
         //Update with beforeShowDay function with set of Block Dates
         optionsArrivalDate.beforeShowDay = function (date) {
           var checkdate = $.datepicker.formatDate('dd-M-yy', date);
@@ -127,11 +127,21 @@ $(document).ready(function () {
           var checkdate = $.datepicker.formatDate('dd-M-yy', date);
           return [disabledDays.indexOf(checkdate) == -1];
         };
+        /*------------------------ RESTRICTED ------------------------*/
+
+        /*------------------------ START DATE ------------------------*/
+        optionsArrivalDate.minDate = new Date(foundData[0]['start_date']);
+        optionsDepartureDate.minDate = new Date(foundData[0]['start_date']);
+        /*------------------------ START DATE ------------------------*/
+
+        /*------------------------ END DATE ------------------------*/
+        optionsArrivalDate.maxDate = new Date(foundData[0]['end_date']);
+        optionsDepartureDate.maxDate = new Date(foundData[0]['end_date']);
+        /*------------------------ END DATE ------------------------*/
 
         //Re-initialise datepicker
         datepickerArrivalDate.datepicker(optionsArrivalDate);
         datepickerDepartureDate.datepicker(optionsDepartureDate);
-        /*------------------------ DATEPICKER ------------------------*/
       } else {
         console.warn('Datepicker: Restore back to original state');
 
