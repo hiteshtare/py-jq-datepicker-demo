@@ -16,28 +16,42 @@ $(document).ready(function () {
     var disabledDays = [];
     var php_data = [
       {
+        purpose_name: '--Select--',
+        start_date: '',
+        end_date: '',
         restricted: "",
-        purpose: '--Select--',
+        status: '',
       },
       {
+        purpose_name: 'Individual Retreat',
+        start_date: '',
+        end_date: '',
         restricted: "'15-Sep-2024','16-Sep-2024','30-Sep-2024'",
-        purpose: 'Individual Retreat',
+        status: '',
       },
+
       {
+        purpose_name: 'Long Meditation',
+        start_date: '',
+        end_date: '',
         restricted: "'25-Sep-2024','26-Sep-2024','05-Oct-2024'",
-        purpose: 'Long Meditation',
+        status: '',
       },
+
       {
+        purpose_name: 'Conducted Retreat',
+        start_date: '',
+        end_date: '',
         restricted:
           "'28-Sep-2024','29-Sep-2024','17-Oct-2024','18-Oct-2024', '19-Oct-2024', '20-Oct-2024','14-Nov-2024','15-Nov-2024', '16-Nov-2024', '17-Nov-2024'",
-        purpose: 'Conducted Retreat',
+        status: '',
       },
     ];
 
     //Populdate Dropdown 
     var $dropdown = $("#input_57_1");
     $.each(php_data, function () {
-      $dropdown.append($("<option />").val(this.purpose).text(this.purpose));
+      $dropdown.append($("<option />").val(this.purpose_name).text(this.purpose_name));
     });
 
     // Assign Date datepicker options to variable
@@ -65,7 +79,7 @@ $(document).ready(function () {
 
     function updateDatepickerOnDropdownChange(currenValue) {
       //Filter array based on value selected to get Array of different years
-      const foundDates = php_data.filter((x) => x.purpose === currenValue);
+      const foundDates = php_data.filter((x) => x.purpose_name === currenValue);
       console.warn('foundDates');
       console.log(foundDates);
 
