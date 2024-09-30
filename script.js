@@ -1,4 +1,3 @@
-console.log('Hello!');
 $(document).ready(function () {
   $(function () {
     $('#input_57_5').datepicker({
