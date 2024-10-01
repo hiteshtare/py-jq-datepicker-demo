@@ -143,7 +143,7 @@ $(document).ready(function () {
         /*------------------------ RESTRICTED ------------------------*/
 
         /*------------------------ START DATE ------------------------*/
-        optionsArrivalDate.minDate = new Date(foundData[0]['start_date']);        
+        optionsArrivalDate.minDate = new Date(foundData[0]['start_date']);
         optionsDepartureDate.minDate = new Date(foundData[0]['start_date']);
         /*------------------------ START DATE ------------------------*/
 
@@ -153,11 +153,15 @@ $(document).ready(function () {
         /*------------------------ END DATE ------------------------*/
 
         /*------------------------ More Validations ------------------------*/
-        optionsArrivalDate.onSelect = function(selected) {
-          $("#input_57_4").datepicker("option","minDate", selected)
+        optionsArrivalDate.onSelect = function (selected) {
+          $("#input_57_4").datepicker("option", "minDate", selected);
+
+          calcDateDiff();
         }
-        optionsDepartureDate.onSelect = function(selected) {
-          $("#input_57_5").datepicker("option","maxDate", selected)
+        optionsDepartureDate.onSelect = function (selected) {
+          $("#input_57_5").datepicker("option", "maxDate", selected);
+
+          calcDateDiff();
         }
         /*------------------------ More Validations ------------------------*/
 
@@ -173,4 +177,22 @@ $(document).ready(function () {
       }
     }
   });
+
+  function calcDateDiff() {
+    let date1 = new Date($("#input_57_4").val());
+    let date2 = new Date($("#input_57_5").val());
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    console.warn(diffDays + " days");
+
+    if (diffDays > 6) {
+      $.toast({
+        text: 'Date difference should be less than 6 days.',
+        showHideTransition: 'fade',
+        icon: 'error',
+        textAlign: 'left',
+        position: 'top-left'
+      })
+    }
+  }
 });
