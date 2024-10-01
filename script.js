@@ -3,10 +3,12 @@ $(document).ready(function () {
     $('#input_57_5').datepicker({
       inline: true,
       altField: '#input_57_5_text',
+      dateFormat: 'dd-M-yy'
     });
     $('#input_57_4').datepicker({
       inline: true,
       altField: '#input_57_4_text',
+      dateFormat: 'dd-M-yy'
     });
 
     var datepickerArrivalDate = $('#input_57_5');
@@ -24,8 +26,8 @@ $(document).ready(function () {
       },
       {
         purpose_name: 'Individual Retreat',
-        start_date: '10-Sep-2024',
-        end_date: '30-Sep-2024',
+        start_date: '10-Oct-2024',
+        end_date: '30-Oct-2024',
         restricted: "'15-Sep-2024','16-Sep-2024','30-Sep-2024'",
         status: true,
       },
@@ -141,7 +143,7 @@ $(document).ready(function () {
         /*------------------------ RESTRICTED ------------------------*/
 
         /*------------------------ START DATE ------------------------*/
-        optionsArrivalDate.minDate = new Date(foundData[0]['start_date']);
+        optionsArrivalDate.minDate = new Date(foundData[0]['start_date']);        
         optionsDepartureDate.minDate = new Date(foundData[0]['start_date']);
         /*------------------------ START DATE ------------------------*/
 
@@ -149,6 +151,15 @@ $(document).ready(function () {
         optionsArrivalDate.maxDate = new Date(foundData[0]['end_date']);
         optionsDepartureDate.maxDate = new Date(foundData[0]['end_date']);
         /*------------------------ END DATE ------------------------*/
+
+        /*------------------------ More Validations ------------------------*/
+        optionsArrivalDate.onSelect = function(selected) {
+          $("#input_57_4").datepicker("option","minDate", selected)
+        }
+        optionsDepartureDate.onSelect = function(selected) {
+          $("#input_57_5").datepicker("option","maxDate", selected)
+        }
+        /*------------------------ More Validations ------------------------*/
 
         //Re-initialise datepicker
         datepickerArrivalDate.datepicker(optionsArrivalDate);
