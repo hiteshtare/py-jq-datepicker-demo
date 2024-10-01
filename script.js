@@ -1,19 +1,20 @@
 $(document).ready(function () {
+  var datepickerArrivalDate = $('#input_57_5');
+  var datepickerDepartureDate = $('#input_57_4');
+  var dropdownPurposeOfVisit = $('#input_57_1');
+
   $(function () {
-    $('#input_57_5').datepicker({
+    datepickerArrivalDate.datepicker({
       inline: true,
       altField: '#input_57_5_text',
       dateFormat: 'dd-M-yy'
     });
-    $('#input_57_4').datepicker({
+    datepickerDepartureDate.datepicker({
       inline: true,
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy'
     });
 
-    var datepickerArrivalDate = $('#input_57_5');
-    var datepickerDepartureDate = $('#input_57_4');
-    var dropdownPurposeOfVisit = $('#input_57_1');
 
     var disabledDays = [];
     var php_data = [
@@ -59,11 +60,10 @@ $(document).ready(function () {
     ];
 
     //Populdate Dropdown 
-    var $dropdown = $("#input_57_1");
     $.each(php_data, function () {
       //Check if status (Visible dropdown) is true
       if (this.status) {
-        $dropdown.append($("<option />").val(this.purpose_name).text(this.purpose_name));
+        dropdownPurposeOfVisit.append($("<option />").val(this.purpose_name).text(this.purpose_name));
       }
     });
 
@@ -80,7 +80,7 @@ $(document).ready(function () {
 
     // Default value for Purpose of visit dropdown 
     const defaultValue = "Individual Retreat";
-    $("#input_57_1").val(defaultValue);
+    dropdownPurposeOfVisit.val(defaultValue);
     updateDatepickerOnDropdownChange(defaultValue);
 
     // Change event for Purpose of visit dropdown
@@ -154,12 +154,12 @@ $(document).ready(function () {
 
         /*------------------------ More Validations ------------------------*/
         optionsArrivalDate.onSelect = function (selected) {
-          $("#input_57_4").datepicker("option", "minDate", selected);
+          datepickerDepartureDate.datepicker("option", "minDate", selected);
 
           calcDateDiff();
         }
         optionsDepartureDate.onSelect = function (selected) {
-          $("#input_57_5").datepicker("option", "maxDate", selected);
+          datepickerArrivalDate.datepicker("option", "maxDate", selected);
 
           calcDateDiff();
         }
@@ -179,8 +179,8 @@ $(document).ready(function () {
   });
 
   function calcDateDiff() {
-    let date1 = new Date($("#input_57_4").val());
-    let date2 = new Date($("#input_57_5").val());
+    let date1 = new Date(datepickerDepartureDate.val());
+    let date2 = new Date(datepickerArrivalDate.val());
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     console.warn(diffDays + " days");
