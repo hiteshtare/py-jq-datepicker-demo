@@ -46,12 +46,23 @@ $(document).ready(function () {
           "'28-Sep-2024','29-Sep-2024','17-Oct-2024','18-Oct-2024', '19-Oct-2024', '20-Oct-2024','14-Nov-2024','15-Nov-2024', '16-Nov-2024', '17-Nov-2024'",
         status: true,
       },
+
+      {
+        purpose_name: 'Other',
+        start_date: '25-Sep-2024',
+        end_date: '25-Oct-2024',
+        restricted: "'20-Oct-2024'",
+        status: false,
+      }
     ];
 
     //Populdate Dropdown 
     var $dropdown = $("#input_57_1");
     $.each(php_data, function () {
-      $dropdown.append($("<option />").val(this.purpose_name).text(this.purpose_name));
+      //Check if status (Visible dropdown) is true
+      if (this.status) {
+        $dropdown.append($("<option />").val(this.purpose_name).text(this.purpose_name));
+      }
     });
 
     // Assign Date datepicker options to variable
