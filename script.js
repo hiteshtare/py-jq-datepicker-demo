@@ -15,7 +15,7 @@ $(document).ready(function () {
     {
       centerid: 36,
       centername: "Ranchi",
-      purpose_id: 24,
+      purpose_id: 1,
       name: 'Individual Retreat',
       label: 'Individual Retreat',
       startdate: '10-Oct-2024',
@@ -25,7 +25,7 @@ $(document).ready(function () {
     {
       centerid: 36,
       centername: "Ranchi",
-      purpose_id: 24,
+      purpose_id: 1,
       name: 'Individual Retreat',
       label: 'Individual Retreat',
       startdate: '25-Oct-2024',
@@ -35,7 +35,7 @@ $(document).ready(function () {
     {
       centerid: 36,
       centername: "Ranchi",
-      purpose_id: 26,
+      purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
       startdate: '12-Oct-2024',
@@ -45,7 +45,7 @@ $(document).ready(function () {
     {
       centerid: 36,
       centername: "Ranchi",
-      purpose_id: 26,
+      purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
       startdate: '19-Oct-2024',
@@ -55,7 +55,7 @@ $(document).ready(function () {
     {
       centerid: 36,
       centername: "Ranchi",
-      purpose_id: 26,
+      purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
       startdate: '26-Oct-2024',
@@ -65,7 +65,7 @@ $(document).ready(function () {
     {
       centerid: 36,
       centername: "Ranchi",
-      purpose_id: 15,
+      purpose_id: 3,
       name: 'Conducted Retreat',
       label: 'Conducted Retreat',
       startdate: '25-Oct-2024',
@@ -76,7 +76,7 @@ $(document).ready(function () {
     {
       enterid: 36,
       centername: "Ranchi",
-      purpose_id: 10,
+      purpose_id: 4,
       name: 'Other',
       label: 'Other',
       startdate: '29-Oct-2024',
