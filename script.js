@@ -15,7 +15,6 @@ $(document).ready(function () {
       dateFormat: 'dd-M-yy'
     });
 
-
     var disabledDays = [];
     var php_data = [
       {
@@ -23,7 +22,6 @@ $(document).ready(function () {
         label: '--Select--',
         startdate: '',
         enddate: '',
-        restricted: "",
         status: true,
       },
       {
@@ -33,8 +31,7 @@ $(document).ready(function () {
         name: 'Individual Retreat',
         label: 'Individual Retreat',
         startdate: '10-Oct-2024',
-        enddate: '30-Oct-2024',
-        restricted: "'17-Oct-2024','18-Oct-2024','19-Oct-2024'",
+        enddate: '15-Oct-2024',
         status: true,
       },
       {
@@ -43,9 +40,8 @@ $(document).ready(function () {
         purpose_id: 24,
         name: 'Individual Retreat',
         label: 'Individual Retreat',
-        startdate: '10-Oct-2024',
+        startdate: '25-Oct-2024',
         enddate: '30-Oct-2024',
-        restricted: "'27-Oct-2024','28-Oct-2024','29-Oct-2024'",
         status: true,
       },
       {
@@ -54,9 +50,8 @@ $(document).ready(function () {
         purpose_id: 26,
         name: 'Long Meditation',
         label: 'Long Meditation',
-        startdate: '20-Sep-2024',
-        enddate: '15-Oct-2024',
-        restricted: "'25-Sep-2024','26-Sep-2024','05-Oct-2024'",
+        startdate: '20-Oct-2024',
+        enddate: '22-Oct-2024',
         status: true,
       },
 
@@ -66,10 +61,8 @@ $(document).ready(function () {
         purpose_id: 15,
         name: 'Conducted Retreat',
         label: 'Conducted Retreat',
-        startdate: '25-Sep-2024',
-        enddate: '25-Nov-2024',
-        restricted:
-          "'28-Sep-2024','29-Sep-2024','17-Oct-2024','18-Oct-2024', '19-Oct-2024', '20-Oct-2024','14-Nov-2024','15-Nov-2024', '16-Nov-2024', '17-Nov-2024'",
+        startdate: '25-Oct-2024',
+        enddate: '27-Oct-2024',
         status: true,
       },
 
@@ -79,9 +72,8 @@ $(document).ready(function () {
         purpose_id: 10,
         name: 'Other',
         label: 'Other',
-        startdate: '25-Sep-2024',
-        enddate: '25-Oct-2024',
-        restricted: "'20-Oct-2024'",
+        startdate: '29-Oct-2024',
+        enddate: '31-Oct-2024',
         status: false,
       }
     ];
@@ -137,12 +129,17 @@ $(document).ready(function () {
         });
         if (existing.length) {
           var existingIndex = mergedArray.indexOf(existing[0]);
-          mergedArray[existingIndex].restricted = mergedArray[
+          mergedArray[existingIndex].startdate = mergedArray[
             existingIndex
-          ].restricted.concat(item.restricted);
+          ].startdate.concat(item.startdate);
+          mergedArray[existingIndex].enddate = mergedArray[
+            existingIndex
+          ].enddate.concat(item.enddate);
         } else {
-          if (typeof item.restricted == 'string')
-            item.restricted = [item.restricted];
+          if (typeof item.startdate == 'string')
+            item.startdate = [item.startdate];
+          if (typeof item.enddate == 'string')
+            item.enddate = [item.enddate];
           mergedArray.push(item);
         }
       });
@@ -154,10 +151,13 @@ $(document).ready(function () {
       // To check mergedArray is not empty
       if (mergedArray.length !== 0) {
         console.warn('Datepicker: update mergedArray to Block Dates');
+        console.warn(`mergedArray`);
         console.log(mergedArray);
 
         //Take single value of string array and final merge into single string
-        disabledDays = mergedArray[0].restricted.join('');
+        // disabledDays = mergedArray[0].restricted.join('');
+        disabledDays = getDates(new Date(mergedArray[0].startdate[0]), new Date(mergedArray[0].enddate[0]));
+        console.warn(`disabledDays`);
         console.log(disabledDays);
 
         /*------------------------ RESTRICTED ------------------------*/
@@ -173,26 +173,26 @@ $(document).ready(function () {
         /*------------------------ RESTRICTED ------------------------*/
 
         /*------------------------ START DATE ------------------------*/
-        optionsArrivalDate.minDate = new Date(foundData[0]['startdate']);
-        optionsDepartureDate.minDate = new Date(foundData[0]['startdate']);
-        /*------------------------ START DATE ------------------------*/
+        // optionsArrivalDate.minDate = new Date(foundData[0]['startdate']);
+        // optionsDepartureDate.minDate = new Date(foundData[0]['startdate']);
+        // /*------------------------ START DATE ------------------------*/
 
-        /*------------------------ END DATE ------------------------*/
-        optionsArrivalDate.maxDate = new Date(foundData[0]['enddate']);
-        optionsDepartureDate.maxDate = new Date(foundData[0]['enddate']);
-        /*------------------------ END DATE ------------------------*/
+        // /*------------------------ END DATE ------------------------*/
+        // optionsArrivalDate.maxDate = new Date(foundData[0]['enddate']);
+        // optionsDepartureDate.maxDate = new Date(foundData[0]['enddate']);
+        // /*------------------------ END DATE ------------------------*/
 
-        /*------------------------ More Validations ------------------------*/
-        optionsArrivalDate.onSelect = function (selected) {
-          datepickerDepartureDate.datepicker("option", "minDate", selected);
+        // /*------------------------ More Validations ------------------------*/
+        // optionsArrivalDate.onSelect = function (selected) {
+        //   datepickerDepartureDate.datepicker("option", "minDate", selected);
 
-          calcDateDiff();
-        }
-        optionsDepartureDate.onSelect = function (selected) {
-          datepickerArrivalDate.datepicker("option", "maxDate", selected);
+        //   calcDateDiff();
+        // }
+        // optionsDepartureDate.onSelect = function (selected) {
+        //   datepickerArrivalDate.datepicker("option", "maxDate", selected);
 
-          calcDateDiff();
-        }
+        //   calcDateDiff();
+        // }
         /*------------------------ More Validations ------------------------*/
 
         //Re-initialise datepicker
@@ -224,5 +224,22 @@ $(document).ready(function () {
         position: 'top-left'
       })
     }
+  }
+
+  Date.prototype.addDays = function (days) {
+    var dat = new Date(this.valueOf())
+    dat.setDate(dat.getDate() + days);
+    return dat;
+  }
+
+  function getDates(startDate, stopDate) {
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+      var currentDateStr = $.datepicker.formatDate('dd-M-yy', currentDate);
+      dateArray.push(currentDateStr)
+      currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
   }
 });
