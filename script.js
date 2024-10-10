@@ -19,51 +19,66 @@ $(document).ready(function () {
     var disabledDays = [];
     var php_data = [
       {
-        purpose_name: '--Select--',
-        start_date: '',
-        end_date: '',
+        name: '--Select--',
+        label: '--Select--',
+        startdate: '',
+        enddate: '',
         restricted: "",
         status: true,
       },
       {
-        purpose_name: 'Individual Retreat',
-        start_date: '10-Oct-2024',
-        end_date: '30-Oct-2024',
-        restricted: "'15-Sep-2024','16-Sep-2024','30-Sep-2024'",
+        name: 'Individual Retreat',
+        label: 'Individual Retreat',
+        startdate: '10-Oct-2024',
+        enddate: '30-Oct-2024',
+        restricted: "'17-Oct-2024','18-Oct-2024','19-Oct-2024'",
         status: true,
       },
-
       {
-        purpose_name: 'Long Meditation',
-        start_date: '20-Sep-2024',
-        end_date: '15-Oct-2024',
+        name: 'Individual Retreat',
+        label: 'Individual Retreat',
+        startdate: '10-Oct-2024',
+        enddate: '30-Oct-2024',
+        restricted: "'27-Oct-2024','28-Oct-2024','29-Oct-2024'",
+        status: true,
+      },
+      {
+        name: 'Long Meditation',
+        label: 'Long Meditation',
+        startdate: '20-Sep-2024',
+        enddate: '15-Oct-2024',
         restricted: "'25-Sep-2024','26-Sep-2024','05-Oct-2024'",
         status: true,
       },
 
       {
-        purpose_name: 'Conducted Retreat',
-        start_date: '25-Sep-2024',
-        end_date: '25-Nov-2024',
+        name: 'Conducted Retreat',
+        label: 'Conducted Retreat',
+        startdate: '25-Sep-2024',
+        enddate: '25-Nov-2024',
         restricted:
           "'28-Sep-2024','29-Sep-2024','17-Oct-2024','18-Oct-2024', '19-Oct-2024', '20-Oct-2024','14-Nov-2024','15-Nov-2024', '16-Nov-2024', '17-Nov-2024'",
         status: true,
       },
 
       {
-        purpose_name: 'Other',
-        start_date: '25-Sep-2024',
-        end_date: '25-Oct-2024',
+        name: 'Other',
+        label: 'Conducted Retreat',
+        startdate: '25-Sep-2024',
+        enddate: '25-Oct-2024',
         restricted: "'20-Oct-2024'",
         status: false,
       }
     ];
 
-    //Populdate Dropdown 
-    $.each(php_data, function () {
+    //Populdate Dropdown with Unique Value
+    const key = 'name';
+    const unique_data = [...new Map(php_data.map(item =>
+      [item[key], item])).values()];
+    $.each(unique_data, function () {
       //Check if status (Visible dropdown) is true
       if (this.status) {
-        dropdownPurposeOfVisit.append($("<option />").val(this.purpose_name).text(this.purpose_name));
+        dropdownPurposeOfVisit.append($("<option />").val(this.name).text(this.name));
       }
     });
 
@@ -92,7 +107,7 @@ $(document).ready(function () {
 
     function updateDatepickerOnDropdownChange(currenValue) {
       //Filter array based on value selected to get Array of different years
-      const foundData = php_data.filter((x) => x.purpose_name === currenValue);
+      const foundData = php_data.filter((x) => x.name === currenValue);
       console.warn('foundData');
       console.log(foundData);
 
@@ -143,13 +158,13 @@ $(document).ready(function () {
         /*------------------------ RESTRICTED ------------------------*/
 
         /*------------------------ START DATE ------------------------*/
-        optionsArrivalDate.minDate = new Date(foundData[0]['start_date']);
-        optionsDepartureDate.minDate = new Date(foundData[0]['start_date']);
+        optionsArrivalDate.minDate = new Date(foundData[0]['startdate']);
+        optionsDepartureDate.minDate = new Date(foundData[0]['startdate']);
         /*------------------------ START DATE ------------------------*/
 
         /*------------------------ END DATE ------------------------*/
-        optionsArrivalDate.maxDate = new Date(foundData[0]['end_date']);
-        optionsDepartureDate.maxDate = new Date(foundData[0]['end_date']);
+        optionsArrivalDate.maxDate = new Date(foundData[0]['enddate']);
+        optionsDepartureDate.maxDate = new Date(foundData[0]['enddate']);
         /*------------------------ END DATE ------------------------*/
 
         /*------------------------ More Validations ------------------------*/
