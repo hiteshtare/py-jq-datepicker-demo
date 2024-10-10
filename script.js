@@ -3,6 +3,69 @@ $(document).ready(function () {
   var datepickerDepartureDate = $('#input_57_4');
   var dropdownPurposeOfVisit = $('#input_57_1');
 
+  var disabledDays = [];
+  const php_data = [
+    {
+      name: '--Select--',
+      label: '--Select--',
+      startdate: '',
+      enddate: '',
+      status: true,
+    },
+    {
+      centerid: 36,
+      centername: "Ranchi",
+      purpose_id: 24,
+      name: 'Individual Retreat',
+      label: 'Individual Retreat',
+      startdate: '10-Oct-2024',
+      enddate: '15-Oct-2024',
+      status: true,
+    },
+    {
+      centerid: 36,
+      centername: "Ranchi",
+      purpose_id: 24,
+      name: 'Individual Retreat',
+      label: 'Individual Retreat',
+      startdate: '25-Oct-2024',
+      enddate: '30-Oct-2024',
+      status: true,
+    },
+    {
+      centerid: 36,
+      centername: "Ranchi",
+      purpose_id: 26,
+      name: 'Long Meditation',
+      label: 'Long Meditation',
+      startdate: '20-Oct-2024',
+      enddate: '22-Oct-2024',
+      status: true,
+    },
+
+    {
+      centerid: 36,
+      centername: "Ranchi",
+      purpose_id: 15,
+      name: 'Conducted Retreat',
+      label: 'Conducted Retreat',
+      startdate: '25-Oct-2024',
+      enddate: '27-Oct-2024',
+      status: true,
+    },
+
+    {
+      enterid: 36,
+      centername: "Ranchi",
+      purpose_id: 10,
+      name: 'Other',
+      label: 'Other',
+      startdate: '29-Oct-2024',
+      enddate: '31-Oct-2024',
+      status: false,
+    }
+  ];
+
   $(function () {
     datepickerArrivalDate.datepicker({
       inline: true,
@@ -14,69 +77,6 @@ $(document).ready(function () {
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy'
     });
-
-    var disabledDays = [];
-    var php_data = [
-      {
-        name: '--Select--',
-        label: '--Select--',
-        startdate: '',
-        enddate: '',
-        status: true,
-      },
-      {
-        centerid: 36,
-        centername: "Ranchi",
-        purpose_id: 24,
-        name: 'Individual Retreat',
-        label: 'Individual Retreat',
-        startdate: '10-Oct-2024',
-        enddate: '15-Oct-2024',
-        status: true,
-      },
-      {
-        centerid: 36,
-        centername: "Ranchi",
-        purpose_id: 24,
-        name: 'Individual Retreat',
-        label: 'Individual Retreat',
-        startdate: '25-Oct-2024',
-        enddate: '30-Oct-2024',
-        status: true,
-      },
-      {
-        centerid: 36,
-        centername: "Ranchi",
-        purpose_id: 26,
-        name: 'Long Meditation',
-        label: 'Long Meditation',
-        startdate: '20-Oct-2024',
-        enddate: '22-Oct-2024',
-        status: true,
-      },
-
-      {
-        centerid: 36,
-        centername: "Ranchi",
-        purpose_id: 15,
-        name: 'Conducted Retreat',
-        label: 'Conducted Retreat',
-        startdate: '25-Oct-2024',
-        enddate: '27-Oct-2024',
-        status: true,
-      },
-
-      {
-        enterid: 36,
-        centername: "Ranchi",
-        purpose_id: 10,
-        name: 'Other',
-        label: 'Other',
-        startdate: '29-Oct-2024',
-        enddate: '31-Oct-2024',
-        status: false,
-      }
-    ];
 
     //Populdate Dropdown with Unique Value
     const key = 'name';
@@ -113,6 +113,8 @@ $(document).ready(function () {
     });
 
     function updateDatepickerOnDropdownChange(currenValue) {
+      console.warn('php_data');
+      console.log(php_data);
       //Filter array based on value selected to get Array of different years
       const foundData = php_data.filter((x) => x.name === currenValue);
       console.warn('foundData');
@@ -122,27 +124,7 @@ $(document).ready(function () {
          Merge array of same value to have Single string array for 
          Datepicker to be supported
       */
-      let mergedArray = [];
-      foundData.forEach(function (item) {
-        var existing = mergedArray.filter(function (v, i) {
-          return v.name == item.name;
-        });
-        if (existing.length) {
-          var existingIndex = mergedArray.indexOf(existing[0]);
-          mergedArray[existingIndex].startdate = mergedArray[
-            existingIndex
-          ].startdate.concat(item.startdate);
-          mergedArray[existingIndex].enddate = mergedArray[
-            existingIndex
-          ].enddate.concat(item.enddate);
-        } else {
-          if (typeof item.startdate == 'string')
-            item.startdate = [item.startdate];
-          if (typeof item.enddate == 'string')
-            item.enddate = [item.enddate];
-          mergedArray.push(item);
-        }
-      });
+      let mergedArray = foundData;
 
       //Destroy current datepicker
       datepickerArrivalDate.datepicker('destroy');
@@ -154,9 +136,12 @@ $(document).ready(function () {
         console.warn(`mergedArray`);
         console.log(mergedArray);
 
-        //Take single value of string array and final merge into single string
-        // disabledDays = mergedArray[0].restricted.join('');
-        disabledDays = getDates(new Date(mergedArray[0].startdate[0]), new Date(mergedArray[0].enddate[0]));
+        disabledDays = [];
+
+        mergedArray.forEach(function (item) {
+          disabledDays += getDates(new Date(item.startdate), new Date(item.enddate));
+        });
+
         console.warn(`disabledDays`);
         console.log(disabledDays);
 
