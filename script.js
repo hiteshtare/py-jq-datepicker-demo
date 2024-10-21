@@ -19,7 +19,7 @@ $(document).ready(function () {
       name: 'Individual Retreat',
       label: 'Individual Retreat',
       startdate: '10-Nov-2024',
-      enddate: '15-Nov-2024',
+      enddate: '12-Nov-2024',
       status: true,
     },
     {
