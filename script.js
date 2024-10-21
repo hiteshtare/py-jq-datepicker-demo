@@ -18,8 +18,8 @@ $(document).ready(function () {
       purpose_id: 1,
       name: 'Individual Retreat',
       label: 'Individual Retreat',
-      startdate: '10-Oct-2024',
-      enddate: '15-Oct-2024',
+      startdate: '10-Nov-2024',
+      enddate: '15-Nov-2024',
       status: true,
     },
     {
@@ -28,8 +28,8 @@ $(document).ready(function () {
       purpose_id: 1,
       name: 'Individual Retreat',
       label: 'Individual Retreat',
-      startdate: '25-Oct-2024',
-      enddate: '30-Oct-2024',
+      startdate: '25-Nov-2024',
+      enddate: '30-Nov-2024',
       status: true,
     },
     {
@@ -38,8 +38,8 @@ $(document).ready(function () {
       purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
-      startdate: '12-Oct-2024',
-      enddate: '13-Oct-2024',
+      startdate: '12-Nov-2024',
+      enddate: '13-Nov-2024',
       status: true,
     },
     {
@@ -48,8 +48,8 @@ $(document).ready(function () {
       purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
-      startdate: '19-Oct-2024',
-      enddate: '20-Oct-2024',
+      startdate: '19-Nov-2024',
+      enddate: '20-Nov-2024',
       status: true,
     },
     {
@@ -58,8 +58,8 @@ $(document).ready(function () {
       purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
-      startdate: '26-Oct-2024',
-      enddate: '27-Oct-2024',
+      startdate: '26-Nov-2024',
+      enddate: '27-Nov-2024',
       status: true,
     },
     {
@@ -68,8 +68,8 @@ $(document).ready(function () {
       purpose_id: 3,
       name: 'Conducted Retreat',
       label: 'Conducted Retreat',
-      startdate: '25-Oct-2024',
-      enddate: '27-Oct-2024',
+      startdate: '25-Nov-2024',
+      enddate: '27-Nov-2024',
       status: true,
     },
 
@@ -79,8 +79,8 @@ $(document).ready(function () {
       purpose_id: 4,
       name: 'Other',
       label: 'Other',
-      startdate: '29-Oct-2024',
-      enddate: '31-Oct-2024',
+      startdate: '29-Nov-2024',
+      enddate: '31-Nov-2024',
       status: false,
     }
   ];
@@ -96,7 +96,7 @@ $(document).ready(function () {
       inline: true,
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy',
-      minDate: 0
+      minDate: 0   
     });
 
     //Populdate Dropdown with Unique Value
