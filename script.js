@@ -90,13 +90,15 @@ $(document).ready(function () {
       inline: true,
       altField: '#input_57_5_text',
       dateFormat: 'dd-M-yy',
-      minDate: 0
+      minDate: 0,
+      firstDay: 1
     });
     datepickerDepartureDate.datepicker({
       inline: true,
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy',
-      minDate: 0   
+      minDate: 0,
+      firstDay: 1  
     });
 
     //Populdate Dropdown with Unique Value
