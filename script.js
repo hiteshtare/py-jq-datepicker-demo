@@ -89,12 +89,14 @@ $(document).ready(function () {
     datepickerArrivalDate.datepicker({
       inline: true,
       altField: '#input_57_5_text',
-      dateFormat: 'dd-M-yy'
+      dateFormat: 'dd-M-yy',
+      minDate: 0
     });
     datepickerDepartureDate.datepicker({
       inline: true,
       altField: '#input_57_4_text',
-      dateFormat: 'dd-M-yy'
+      dateFormat: 'dd-M-yy',
+      minDate: 0
     });
 
     //Populdate Dropdown with Unique Value
@@ -187,16 +189,16 @@ $(document).ready(function () {
         // /*------------------------ END DATE ------------------------*/
 
         // /*------------------------ More Validations ------------------------*/
-        // optionsArrivalDate.onSelect = function (selected) {
-        //   datepickerDepartureDate.datepicker("option", "minDate", selected);
+        optionsArrivalDate.onSelect = function (selected) {
+          datepickerDepartureDate.datepicker("option", "minDate", selected);
 
-        //   calcDateDiff();
-        // }
-        // optionsDepartureDate.onSelect = function (selected) {
-        //   datepickerArrivalDate.datepicker("option", "maxDate", selected);
+          calcDateDiff();
+        }
+        optionsDepartureDate.onSelect = function (selected) {
+          datepickerArrivalDate.datepicker("option", "maxDate", selected);
 
-        //   calcDateDiff();
-        // }
+          calcDateDiff();
+        }
         /*------------------------ More Validations ------------------------*/
 
         //Re-initialise datepicker
@@ -215,6 +217,10 @@ $(document).ready(function () {
   function calcDateDiff() {
     let date1 = new Date(datepickerDepartureDate.val());
     let date2 = new Date(datepickerArrivalDate.val());
+    console.warn("date1");
+    console.log(date1);
+    console.warn("date2");
+    console.log(date2);
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     console.warn(diffDays + " days");
