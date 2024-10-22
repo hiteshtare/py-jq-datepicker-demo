@@ -245,6 +245,9 @@ $(document).ready(function () {
       }
     })
 
+    // return winner;
+    // return dates[winner];
+
     if (winner == -1) {
       let date1 = new Date(param);
       return date1.addDays(maxDateDiffLimit);
