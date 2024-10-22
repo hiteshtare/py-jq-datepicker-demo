@@ -5,7 +5,8 @@ $(document).ready(function () {
 
   var disabledDays = [];
   var arrDisabledDays = [];
-  const maxDateDiffLimit = 9;
+  const maxStayDuration = 9;
+  const bookingHorizon = 180;
 
   const php_data = [
     {
@@ -94,6 +95,7 @@ $(document).ready(function () {
       altField: '#input_57_5_text',
       dateFormat: 'dd-M-yy',
       minDate: 0,
+      maxDate: bookingHorizon,
       firstDay: 1
     });
     datepickerDepartureDate.datepicker({
@@ -101,6 +103,7 @@ $(document).ready(function () {
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy',
       minDate: 0,
+      maxDate: bookingHorizon,
       firstDay: 1
     });
 
@@ -250,7 +253,7 @@ $(document).ready(function () {
 
     if (winner == -1) {
       let date1 = new Date(param);
-      return date1.addDays(maxDateDiffLimit);
+      return date1.addDays(maxStayDuration);
     }
     else {
       let date1 = new Date(param);
@@ -258,34 +261,13 @@ $(document).ready(function () {
       const diffTime = Math.abs(date2 - date1);
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-      if (diffDays > maxDateDiffLimit) {
-        return date1.addDays(maxDateDiffLimit);
+      if (diffDays > maxStayDuration) {
+        return date1.addDays(maxStayDuration);
       }
       else
         return dates[winner];
     }
   }
-
-  function nearestDate(dates, param) {
-    let nearest = Infinity;
-    let winner = -1;
-
-    const target = new Date(param);
-
-    dates.forEach(function (item, index) {
-      const date = new Date(item);
-
-      let distance = date - target;
-      if (distance < nearest && distance > 0) {
-        nearest = distance
-        winner = index
-      }
-    })
-
-    // return winner;
-    return dates[winner];
-  }
-
 
   function calcDateDiff() {
     let date1 = new Date(datepickerDepartureDate.val());
@@ -294,7 +276,7 @@ $(document).ready(function () {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     // console.warn(diffDays + " days");
 
-    if (diffDays > maxDateDiffLimit) {
+    if (diffDays > maxStayDuration) {
       $.toast({
         text: 'Date difference should be less than 6 days.',
         showHideTransition: 'fade',
