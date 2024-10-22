@@ -4,6 +4,9 @@ $(document).ready(function () {
   var dropdownPurposeOfVisit = $('#input_57_1');
 
   var disabledDays = [];
+  var arrDisabledDays = [];
+  const maxDateDiffLimit = 6;
+
   const php_data = [
     {
       name: '--Select--',
@@ -98,7 +101,7 @@ $(document).ready(function () {
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy',
       minDate: 0,
-      firstDay: 1  
+      firstDay: 1
     });
 
     //Populdate Dropdown with Unique Value
@@ -160,13 +163,18 @@ $(document).ready(function () {
         console.log(mergedArray);
 
         disabledDays = [];
+        arrDisabledDays = [];
 
         mergedArray.forEach(function (item) {
           disabledDays += getDates(new Date(item.startdate), new Date(item.enddate));
+          const disableDays = getDates(new Date(item.startdate), new Date(item.enddate));
+          arrDisabledDays.push(... disableDays);
         });
 
         console.warn(`disabledDays`);
         console.log(disabledDays);
+        console.warn(`arrDisabledDays`);
+        console.log(arrDisabledDays);
 
         /*------------------------ RESTRICTED ------------------------*/
         //Update with beforeShowDay function with set of Block Dates
@@ -194,6 +202,11 @@ $(document).ready(function () {
         optionsArrivalDate.onSelect = function (selected) {
           datepickerDepartureDate.datepicker("option", "minDate", selected);
 
+          const closestDate = nearestDate(arrDisabledDays,selected);;
+          console.warn(`closestDate`);
+          console.log(closestDate);
+          datepickerDepartureDate.datepicker("option", "maxDate", closestDate);
+
           calcDateDiff();
         }
         optionsDepartureDate.onSelect = function (selected) {
@@ -216,18 +229,35 @@ $(document).ready(function () {
     }
   });
 
+  function nearestDate(dates, param) {
+    let nearest = Infinity;
+    let winner = -1;
+
+    const target = new Date(param);
+
+    dates.forEach(function (item, index) {
+      const date = new Date(item);
+
+      let distance = date - target;
+      if (distance < nearest && distance > 0) {
+        nearest = distance
+        winner = index
+      }
+    })
+
+    // return winner;
+    return dates[winner];
+  }
+
+
   function calcDateDiff() {
     let date1 = new Date(datepickerDepartureDate.val());
     let date2 = new Date(datepickerArrivalDate.val());
-    console.warn("date1");
-    console.log(date1);
-    console.warn("date2");
-    console.log(date2);
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    console.warn(diffDays + " days");
+    // console.warn(diffDays + " days");
 
-    if (diffDays > 6) {
+    if (diffDays > maxDateDiffLimit) {
       $.toast({
         text: 'Date difference should be less than 6 days.',
         showHideTransition: 'fade',
