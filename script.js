@@ -168,7 +168,7 @@ $(document).ready(function () {
         mergedArray.forEach(function (item) {
           disabledDays += getDates(new Date(item.startdate), new Date(item.enddate));
           const disableDays = getDates(new Date(item.startdate), new Date(item.enddate));
-          arrDisabledDays.push(... disableDays);
+          arrDisabledDays.push(...disableDays);
         });
 
         console.warn(`disabledDays`);
@@ -202,17 +202,17 @@ $(document).ready(function () {
         optionsArrivalDate.onSelect = function (selected) {
           datepickerDepartureDate.datepicker("option", "minDate", selected);
 
-          const closestDate = nearestDate(arrDisabledDays,selected);;
+          const closestDate = closestValidDate(arrDisabledDays, selected);
           console.warn(`closestDate`);
           console.log(closestDate);
           datepickerDepartureDate.datepicker("option", "maxDate", closestDate);
 
-          calcDateDiff();
+          // calcDateDiff();
         }
         optionsDepartureDate.onSelect = function (selected) {
           datepickerArrivalDate.datepicker("option", "maxDate", selected);
 
-          calcDateDiff();
+          // calcDateDiff();
         }
         /*------------------------ More Validations ------------------------*/
 
@@ -228,6 +228,40 @@ $(document).ready(function () {
       }
     }
   });
+
+  function closestValidDate(dates, param) {
+    let nearest = Infinity;
+    let winner = -1;
+
+    const target = new Date(param);
+
+    dates.forEach(function (item, index) {
+      const date = new Date(item);
+
+      let distance = date - target;
+      if (distance < nearest && distance > 0) {
+        nearest = distance;
+        winner = index;
+      }
+    })
+
+    if (winner == -1) {
+      let date1 = new Date(param);
+      return date1.addDays(maxDateDiffLimit);
+    }
+    else {
+      let date1 = new Date(param);
+      let date2 = new Date(dates[winner]);
+      const diffTime = Math.abs(date2 - date1);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays > maxDateDiffLimit) {
+        return date1.addDays(maxDateDiffLimit);
+      }
+      else
+        return dates[winner];
+    }
+  }
 
   function nearestDate(dates, param) {
     let nearest = Infinity;
