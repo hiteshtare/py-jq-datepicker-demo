@@ -5,7 +5,7 @@ $(document).ready(function () {
 
   var disabledDays = [];
   var arrDisabledDays = [];
-  const maxDateDiffLimit = 6;
+  const maxDateDiffLimit = 9;
 
   const php_data = [
     {
