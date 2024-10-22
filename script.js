@@ -7,6 +7,10 @@ $(document).ready(function () {
   var arrDisabledDays = [];
   const maxStayDuration = 9;
   const bookingHorizon = 180;
+  const arrivalCutoff = 2;
+  console.warn('maxStayDuration: ' + maxStayDuration);
+  console.warn('bookingHorizon: ' + bookingHorizon);
+  console.warn('arrivalCutoff: ' + arrivalCutoff);
 
   const php_data = [
     {
@@ -94,7 +98,7 @@ $(document).ready(function () {
       inline: true,
       altField: '#input_57_5_text',
       dateFormat: 'dd-M-yy',
-      minDate: 0,
+      minDate: arrivalCutoff,
       maxDate: bookingHorizon,
       firstDay: 1
     });
@@ -102,7 +106,7 @@ $(document).ready(function () {
       inline: true,
       altField: '#input_57_4_text',
       dateFormat: 'dd-M-yy',
-      minDate: 0,
+      minDate: arrivalCutoff,
       maxDate: bookingHorizon,
       firstDay: 1
     });
