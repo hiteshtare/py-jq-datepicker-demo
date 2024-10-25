@@ -1,0 +1,74 @@
+[
+    {
+        "centerid": 36,
+        "centername": "ranchi",
+        "purposeid": 1,
+        "name": "Individual Retreat",
+        "label": "Individual Retreat",
+        "startdate": "10-Nov-2024",
+        "enddate": "12-Nov-2024"
+    },
+    {
+        "centerid": 36,
+        "centername": "ranchi",
+        "purposeid": 1,
+        "name": "Individual Retreat",
+        "label": "Individual Retreat",
+        "startdate": "25-Nov-2024",
+        "enddate": "30-Nov-2024"
+    },
+    {
+        "centerid": 36,
+        "centername": "ranchi",
+        "purposeid": 1,
+        "name": "Long Meditation",
+        "label": "Long Meditation",
+        "startdate": "12-Nov-2024",
+        "enddate": "13-Nov-2024"
+    },
+    {
+        "centerid": 36,
+        "centername": "ranchi",
+        "purposeid": 1,
+        "name": "Long Meditation",
+        "label": "Long Meditation",
+        "startdate": "19-Nov-2024",
+        "enddate": "20-Nov-2024"
+    },
+    {
+        "centerid": 36,
+        "centername": "ranchi",
+        "purposeid": 1,
+        "name": "Long Meditation",
+        "label": "Long Meditation",
+        "startdate": "26-Nov-2024",
+        "enddate": "27-Nov-2024"
+    },
+    {
+        "centerid": 36,
+        "centername": "ranchi",
+        "purposeid": 1,
+        "name": "Conducted Retreat",
+        "label": "Conducted Retreat",
+        "startdate": "25-Nov-2024",
+        "enddate": "27-Nov-2024"
+    },
+    {
+        "centerid": 38,
+        "centername": "dakshineswar",
+        "purposeid": 1,
+        "name": "Individual Retreat",
+        "label": "Individual Retreat",
+        "startdate": "20-Nov-2024",
+        "enddate": "25-Nov-2024"
+    },
+    {
+        "centerid": 38,
+        "centername": "dakshineswar",
+        "purposeid": 1,
+        "name": "Long Meditation",
+        "label": "Long Meditation",
+        "startdate": "10-Nov-2024",
+        "enddate": "12-Nov-2024"
+    }
+]

@@ -100,7 +100,7 @@ $(document).ready(function () {
       dateFormat: 'dd-M-yy',
       minDate: arrivalCutoff,
       maxDate: bookingHorizon,
-      firstDay: 1
+      // firstDay: 1
     });
     datepickerDepartureDate.datepicker({
       inline: true,
@@ -108,7 +108,7 @@ $(document).ready(function () {
       dateFormat: 'dd-M-yy',
       minDate: arrivalCutoff,
       maxDate: bookingHorizon,
-      firstDay: 1
+      // firstDay: 1
     });
 
     //Populdate Dropdown with Unique Value
@@ -257,11 +257,13 @@ $(document).ready(function () {
 
     if (winner == -1) {
       let date1 = new Date(param);
+      debugger;
       return date1.addDays(maxStayDuration);
     }
     else {
       let date1 = new Date(param);
       let date2 = new Date(dates[winner]);
+      debugger;
       const diffTime = Math.abs(date2 - date1);
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
