@@ -331,10 +331,11 @@ $(document).ready(function () {
               return false;
             }
           });
-        } else {
-          $.each($('select[name=input_58] option'), function () {
-            $(this).removeAttr('disabled').prop('selected', true);
-          });
+        } 
+        else {
+          // $.each($('select[name=input_58] option'), function () {
+          //   $(this).removeAttr('disabled').prop('selected', true);
+          // });
           $.each($('select[name=input_60] option'), function () {
             $(this).removeAttr('disabled').prop('selected', true);
           });
