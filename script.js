@@ -215,11 +215,15 @@ $(document).ready(function () {
           datepickerDepartureDate.datepicker("option", "maxDate", closestDate);
 
           // calcDateDiff();
+
+          blockTimeForSameDates();
         }
         optionsDepartureDate.onSelect = function (selected) {
           datepickerArrivalDate.datepicker("option", "maxDate", selected);
 
           // calcDateDiff();
+
+          blockTimeForSameDates();
         }
         /*------------------------ More Validations ------------------------*/
 
@@ -234,7 +238,9 @@ $(document).ready(function () {
         datepickerDepartureDate.datepicker(optionsDepartureDateCopy);
       }
     }
-  });
+
+    blockTimeForSameDates();
+  }); //end of $(function ())
 
   function closestValidDate(dates, param) {
     let nearest = Infinity;
@@ -257,13 +263,11 @@ $(document).ready(function () {
 
     if (winner == -1) {
       let date1 = new Date(param);
-      debugger;
       return date1.addDays(maxStayDuration);
     }
     else {
       let date1 = new Date(param);
       let date2 = new Date(dates[winner]);
-      debugger;
       const diffTime = Math.abs(date2 - date1);
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
@@ -308,5 +312,35 @@ $(document).ready(function () {
       currentDate = currentDate.addDays(1);
     }
     return dateArray;
+  }
+
+  function blockTimeForSameDates() {
+    $('select[name=input_58]').on("change", function () {
+      if (datepickerArrivalDate.val() !== "" && datepickerDepartureDate.val() !== "") {
+        if (datepickerArrivalDate.val() == datepickerDepartureDate.val()) {
+          var theSelectedIndex = $(this)[0].selectedIndex;
+          $.each($('select[name=input_60] option'), function () {
+            $(this).removeAttr('disabled').prop('selected', true);
+          });
+          debugger;
+          $.each($('select[name=input_60] option'), function () {
+            var endOptionIndex = $(this).index();
+            if (endOptionIndex < theSelectedIndex) {
+              $(this).attr('disabled', 'disabled');
+            } else {
+              $(this).removeAttr('disabled').prop('selected', true);
+              return false;
+            }
+          });
+        } else {
+          $.each($('select[name=input_58] option'), function () {
+            $(this).removeAttr('disabled').prop('selected', true);
+          });
+          $.each($('select[name=input_60] option'), function () {
+            $(this).removeAttr('disabled').prop('selected', true);
+          });
+        }
+      }
+    });
   }
 });
