@@ -322,7 +322,6 @@ $(document).ready(function () {
           $.each($('select[name=input_60] option'), function () {
             $(this).removeAttr('disabled').prop('selected', true);
           });
-          debugger;
           $.each($('select[name=input_60] option'), function () {
             var endOptionIndex = $(this).index();
             if (endOptionIndex < theSelectedIndex) {
