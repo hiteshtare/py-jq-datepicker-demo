@@ -7,7 +7,7 @@ $(document).ready(function () {
   var arrDisabledDays = [];
   const maxStayDuration = 9;
   const bookingHorizon = 180;
-  const arrivalCutoff = 2;
+  const arrivalCutoff = 1;
   console.warn('maxStayDuration: ' + maxStayDuration);
   console.warn('bookingHorizon: ' + bookingHorizon);
   console.warn('arrivalCutoff: ' + arrivalCutoff);
@@ -26,8 +26,8 @@ $(document).ready(function () {
       purpose_id: 1,
       name: 'Individual Retreat',
       label: 'Individual Retreat',
-      startdate: '10-Nov-2024',
-      enddate: '12-Nov-2024',
+      startdate: '10-Nov-2025',
+      enddate: '12-Nov-2025',
       status: true,
     },
     {
@@ -36,8 +36,8 @@ $(document).ready(function () {
       purpose_id: 1,
       name: 'Individual Retreat',
       label: 'Individual Retreat',
-      startdate: '25-Nov-2024',
-      enddate: '30-Nov-2024',
+      startdate: '25-Nov-2025',
+      enddate: '30-Nov-2025',
       status: true,
     },
     {
@@ -46,8 +46,8 @@ $(document).ready(function () {
       purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
-      startdate: '12-Nov-2024',
-      enddate: '13-Nov-2024',
+      startdate: '12-Nov-2025',
+      enddate: '13-Nov-2025',
       status: true,
     },
     {
@@ -56,8 +56,8 @@ $(document).ready(function () {
       purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
-      startdate: '19-Nov-2024',
-      enddate: '20-Nov-2024',
+      startdate: '19-Nov-2025',
+      enddate: '20-Nov-2025',
       status: true,
     },
     {
@@ -66,8 +66,8 @@ $(document).ready(function () {
       purpose_id: 2,
       name: 'Long Meditation',
       label: 'Long Meditation',
-      startdate: '26-Nov-2024',
-      enddate: '27-Nov-2024',
+      startdate: '26-Nov-2025',
+      enddate: '27-Nov-2025',
       status: true,
     },
     {
@@ -76,8 +76,8 @@ $(document).ready(function () {
       purpose_id: 3,
       name: 'Conducted Retreat',
       label: 'Conducted Retreat',
-      startdate: '25-Nov-2024',
-      enddate: '27-Nov-2024',
+      startdate: '25-Nov-2025',
+      enddate: '27-Nov-2025',
       status: true,
     },
 
@@ -87,8 +87,8 @@ $(document).ready(function () {
       purpose_id: 4,
       name: 'Other',
       label: 'Other',
-      startdate: '29-Nov-2024',
-      enddate: '31-Nov-2024',
+      startdate: '29-Nov-2025',
+      enddate: '31-Nov-2025',
       status: false,
     }
   ];
